@@ -42,5 +42,5 @@ During the script execution, you will be prompted to enter:
 Once completed, you can access your WordPress site by visiting:
 
 ```
-http://<your-ec2-ip>/wordpress
+http://<your-public-ip>
 ```
