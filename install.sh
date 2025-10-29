@@ -34,24 +34,25 @@ echo "Downloading WordPress..."
 cd /var/www/html
 sudo wget https://wordpress.org/latest.tar.gz
 
-# Extract WordPress files directly into the /var/www/html/wordpress directory
-sudo tar -xvzf latest.tar.gz
+# Extract WordPress files directly into the /var/www/html directory
+echo "Extracting WordPress..."
+sudo tar -xvzf latest.tar.gz --strip-components=1
 sudo rm latest.tar.gz
 
 # Set correct permissions for WordPress files
 echo "Setting permissions..."
-sudo chown -R www-data:www-data /var/www/html/wordpress
-sudo chmod -R 755 /var/www/html/wordpress
+sudo chown -R www-data:www-data /var/www/html
+sudo chmod -R 755 /var/www/html
 
 # Create wp-config.php from wp-config-sample.php
 echo "Creating wp-config.php..."
-sudo cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
+sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 # Update wp-config.php with DB credentials
 echo "Updating wp-config.php with DB credentials..."
-sudo sed -i "s/database_name_here/$DB_NAME/" /var/www/html/wordpress/wp-config.php
-sudo sed -i "s/username_here/$DB_USER/" /var/www/html/wordpress/wp-config.php
-sudo sed -i "s/password_here/$DB_PASSWORD/" /var/www/html/wordpress/wp-config.php
+sudo sed -i "s/database_name_here/$DB_NAME/" /var/www/html/wp-config.php
+sudo sed -i "s/username_here/$DB_USER/" /var/www/html/wp-config.php
+sudo sed -i "s/password_here/$DB_PASSWORD/" /var/www/html/wp-config.php
 
 # Restart Apache to apply changes
 echo "Restarting Apache..."
@@ -64,4 +65,4 @@ echo "You can now complete the setup by visiting your server's IP address."
 # Get and display the EC2 instance public IP
 PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
 echo "Your server's public IP address is: $PUBLIC_IP"
-echo "Open your browser and visit http://$PUBLIC_IP/wordpress to finish the WordPress installation."
+echo "Open your browser and visit http://$PUBLIC_IP to finish the WordPress installation."
